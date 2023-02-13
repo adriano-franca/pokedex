@@ -38,6 +38,7 @@
 import axios from 'axios'
 export default {
     created: function(){
+        //Fazendo a requisição usando a url de cada pokemon, resgatando todos os seus dados e suas sprites
         axios.get(this.url).then(res => {
             this.pokemon.hp = res.data.stats[0].base_stat;
             this.pokemon.attack = res.data.stats[1].base_stat;
@@ -56,6 +57,7 @@ export default {
         })
     },
     data(){
+        //Inicializando os dados que serão colocados em cada card
         return {
             isFront: true,
             currentImg: '',
@@ -66,11 +68,13 @@ export default {
             }
         }
     },
+    //Propriedades de um componente Poke
     props: {
         num: Number,
         name: String,
         url: String
     },
+    //Criando método para girar a sprite do pokemon
     methods:{
         girarPoke: function(){
             if(this.isFront){
