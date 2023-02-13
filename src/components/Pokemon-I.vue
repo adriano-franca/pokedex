@@ -45,6 +45,9 @@ export default {
             this.pokemon.specialAttack = res.data.stats[3].base_stat;
             this.pokemon.specialDefense = res.data.stats[4].base_stat;
             this.pokemon.speed = res.data.stats[5].base_stat;
+            /*var id = res.data.id;
+            var req = 'https://pokeapi.co/api/v2/evolution-chain/{'+{id}+'}/';
+            this.pokemon.chain = axios.get(req);*/
             this.pokemon.num = res.data.id;
             this.pokemon.type = res.data.types[0].type.name;
             this.pokemon.front = res.data.sprites.front_default;

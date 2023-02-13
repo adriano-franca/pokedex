@@ -5,7 +5,10 @@
       <hr>
       <h3 class="is-size-3">Pokedex</h3>
       <input type="text" class="input is-rounded" name="" id="" placeholder="Digite o nome do pokemon..." v-model="busca">
-      <button class="button is-fullwidth" id="btnBusca" @click="buscar">Buscar</button>
+      <div>
+        <button class="button" id="btnBusca" @click="buscar">Buscar</button>
+        <button class="button" id="btnBusca" @click="withEvolutions">Buscar com evoluções</button>
+      </div>
       <div v-for="(poke, index) in pokeFiltro" :key="poke.url">
       <Pokemon :name="poke.name" :url="poke.url" :num="index+1" />
     </div>
@@ -45,6 +48,13 @@ export default {
       }else{
         this.pokeFiltro = this.pokemons.filter(pokemon => pokemon.name.toUpperCase() == this.busca.toUpperCase())
       }
+    },
+    withEvolutions: function(){
+      if(this.busca == '' || this.busca == ' '){
+        this.pokeFiltro = this.pokemons;
+      }else{
+        alert("Ainda em desenvolvimento");
+      }
     }
   }
 }
@@ -61,6 +71,7 @@ export default {
 }
 #btnBusca {
   margin-top: 2%;
+  size: 50%;
   background-color: rgb(0, 128, 0);
   color: white;
 }
