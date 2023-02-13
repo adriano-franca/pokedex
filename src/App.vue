@@ -1,6 +1,9 @@
 <template>
   <div id="app">
     <div class="column is-half is-offset-one-quarter">
+      <img src="./assets/pokemon.png">
+      <hr>
+      <h3 class="is-size-3">Pokedex</h3>
       <div v-for="(poke, index) in pokemons" :key="index">
       <Pokemon :name="poke.name" :url="poke.url" :num="index+1" />
     </div>

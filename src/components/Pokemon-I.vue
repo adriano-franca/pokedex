@@ -1,7 +1,7 @@
 <template>
     <div id="pokemon">
     </div>
-            <div class="card">
+        <div class="card">
         <div class="card-image">
             <figure>
             <img :src="currentImg" alt="Placeholder image">
@@ -15,9 +15,8 @@
                 <p class="subtitle is-5">{{ pokemon.type }}</p>
             </div>
             </div>
-
             <div class="content">
-            
+                <button id="btnGirar" class="button is-fullwidth" @click="girarPoke">Girar</button>
             </div>
         </div>
         </div>
@@ -51,11 +50,25 @@ export default {
         name: String,
         url: String
     },
+    methods:{
+        girarPoke: function(){
+            if(this.isFront){
+                this.isFront = false;
+                this.currentImg = this.pokemon.back;
+            }else{
+                this.isFront = true;
+                this.currentImg = this.pokemon.front;
+            }
+        }
+    }
 }
 </script>
 
 <style>
 #pokemon {
     margin-top:3%;
+}
+#btnGirar{
+    background-color: cornflowerblue;
 }
 </style>
