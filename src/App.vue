@@ -4,7 +4,9 @@
       <img src="./assets/pokemon.png">
       <hr>
       <h3 class="is-size-3">Pokedex</h3>
-      <div v-for="(poke, index) in pokemons" :key="index">
+      <input type="text" class="input is-rounded" name="" id="" placeholder="Digite o nome do pokemon..." v-model="busca">
+      <button class="button is-fullwidth" id="btnBusca" @click="buscar">Buscar</button>
+      <div v-for="(poke, index) in pokeFiltro" :key="poke.url">
       <Pokemon :name="poke.name" :url="poke.url" :num="index+1" />
     </div>
     </div>
@@ -20,18 +22,30 @@ export default {
   name: 'App',
   data(){
     return{
-      pokemons: []
+      pokemons: [],
+      pokeFiltro: [],
+      busca: ''
     }
   },
   created: function(){
-    
     axios.get("https://pokeapi.co/api/v2/pokemon?limit=151&offset=0").then(res => {
       console.log("Pokemons was caught");
       this.pokemons = res.data.results;
+      this.pokeFiltro = res.data.results;
     })
   },
   components: {
     Pokemon, 
+  },
+  methods: {
+    buscar: function(){
+      this.pokeFiltro = this.pokemons;
+      if(this.busca == '' || this.busca == ' '){
+        this.pokeFiltro = this.pokemons;
+      }else{
+        this.pokeFiltro = this.pokemons.filter(pokemon => pokemon.name.toUpperCase() == this.busca.toUpperCase())
+      }
+    }
   }
 }
 </script>
@@ -44,5 +58,10 @@ export default {
   text-align: center;
   color: #2c3e50;
   margin-top: 60px;
+}
+#btnBusca {
+  margin-top: 2%;
+  background-color: rgb(0, 128, 0);
+  color: white;
 }
 </style>

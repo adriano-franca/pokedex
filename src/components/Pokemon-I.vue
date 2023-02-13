@@ -12,7 +12,18 @@
             
             <div class="media-content">
                 <p class="title is-4">{{ num }} - {{ name.toUpperCase() }}</p>
-                <p class="subtitle is-5">{{ pokemon.type }}</p>
+                <div id="stats-left" >
+                    <p class="subtitle is-7">{{ pokemon.type.toUpperCase() }}</p>
+                    <p class="subtitle is-7">N° Pokedex: {{ pokemon.num }}</p>
+                    <p class="subtitle is-7">HP: {{ pokemon.hp }}</p>
+                    <p class="subtitle is-7">Attack: {{ pokemon.attack }}</p>
+                </div>
+                <div id="stats-right">
+                    <p class="subtitle is-7">Defense: {{ pokemon.defense }}</p>
+                    <p class="subtitle is-7">Special Attack: {{ pokemon.specialAttack }}</p>
+                    <p class="subtitle is-7">Special Defense: {{ pokemon.specialDefense }}</p>
+                    <p class="subtitle is-7">Speed: {{ pokemon.speed }}</p>
+                </div>
             </div>
             </div>
             <div class="content">
@@ -28,6 +39,13 @@ import axios from 'axios'
 export default {
     created: function(){
         axios.get(this.url).then(res => {
+            this.pokemon.hp = res.data.stats[0].base_stat;
+            this.pokemon.attack = res.data.stats[1].base_stat;
+            this.pokemon.defense = res.data.stats[2].base_stat;
+            this.pokemon.specialAttack = res.data.stats[3].base_stat;
+            this.pokemon.specialDefense = res.data.stats[4].base_stat;
+            this.pokemon.speed = res.data.stats[5].base_stat;
+            this.pokemon.num = res.data.id;
             this.pokemon.type = res.data.types[0].type.name;
             this.pokemon.front = res.data.sprites.front_default;
             this.pokemon.back = res.data.sprites.back_default;
@@ -70,5 +88,16 @@ export default {
 }
 #btnGirar{
     background-color: cornflowerblue;
+    color: black;
+}
+#stats-left {
+    width: 50%;
+    float: left;
+    text-align: left;
+}
+#stats-right {
+    width: 50%;
+    float: right;
+    text-align: left;
 }
 </style>
