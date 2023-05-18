@@ -1,17 +1,16 @@
 <template>
-  <div id="app">
-    <div class="column is-half is-offset-one-quarter">
-      <img src="./assets/pokemon.png">
-      <hr>
+  <div class="app">
+    <div class="container" id="container">
+      <img id="imagem" src="./assets/pokemon.png">
       <h3 class="is-size-3">Pokedex</h3>
-      <input type="text" class="input is-rounded" name="" id="" placeholder="Digite o nome do pokemon..." v-model="busca">
+      <input type="text" class="input is-rounded" name="" id="barra-busca" placeholder="Digite o nome do pokemon..." v-model="busca">
       <div>
         <button class="button" id="btnBusca" @click="buscar">Buscar</button>
         <button class="button" id="btnBusca" @click="withEvolutions">Buscar com evoluções</button>
       </div>
-      <div v-for="(poke, index) in pokeFiltro" :key="poke.url">
-      <Pokemon :name="poke.name" :url="poke.url" :num="index+1" />
-    </div>
+        <div id="container-poke" v-for="(poke, index) in pokeFiltro" :key="poke.url">
+          <Pokemon :name="poke.name" :url="poke.url" :num="index+1" />
+      </div>
     </div>
   </div>
 </template>
@@ -36,7 +35,6 @@ export default {
   //Resgatei apenas os 151 primeiros para a aplicação não ficar tão lenta
   created: function(){
     axios.get("https://pokeapi.co/api/v2/pokemon?limit=151&offset=0").then(res => {
-      console.log("Pokemons was caught");
       this.pokemons = res.data.results;
       this.pokeFiltro = res.data.results;
     })
@@ -73,16 +71,28 @@ export default {
 <style>
 #app {
   font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
   text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
+  margin-top: 30px;
+  align-items: center;
 }
 #btnBusca {
   margin-top: 2%;
   size: 50%;
   background-color: rgb(0, 128, 0);
   color: white;
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
 }
+
+#barra-busca{
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+}
+
+#imagem{
+  width: 300px;
+}
+
+#container{
+  align-items: center;
+}
+
 </style>

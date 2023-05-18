@@ -1,9 +1,9 @@
 <template>
-    <div id="pokemon">
+    <div id="auxiliar">
     </div>
-        <div class="card">
+        <div class="card" id="container-poke">
         <div class="card-image">
-            <figure>
+            <figure id="imagempoke">
             <img :src="currentImg" alt="Placeholder image">
             </figure>
         </div>
@@ -13,21 +13,21 @@
             <div class="media-content">
                 <p class="title is-4">{{ num }} - {{ name.toUpperCase() }}</p>
                 <div id="stats-left" >
-                    <p class="subtitle is-7">{{ pokemon.type.toUpperCase() }}</p>
-                    <p class="subtitle is-7">N° Pokedex: {{ pokemon.num }}</p>
-                    <p class="subtitle is-7">HP: {{ pokemon.hp }}</p>
-                    <p class="subtitle is-7">Attack: {{ pokemon.attack }}</p>
+                    <p id="fontepoke">{{ pokemon.type.toUpperCase() }}</p>
+                    <p id="fontepoke">N° Pokedex: {{ pokemon.num }}</p>
+                    <p id="fontepoke">HP: {{ pokemon.hp }}</p>
+                    <p id="fontepoke">Ataque: {{ pokemon.attack }}</p>
                 </div>
                 <div id="stats-right">
-                    <p class="subtitle is-7">Defense: {{ pokemon.defense }}</p>
-                    <p class="subtitle is-7">Special Attack: {{ pokemon.specialAttack }}</p>
-                    <p class="subtitle is-7">Special Defense: {{ pokemon.specialDefense }}</p>
-                    <p class="subtitle is-7">Speed: {{ pokemon.speed }}</p>
+                    <p id="fontepoke">Defesa: {{ pokemon.defense }}</p>
+                    <p id="fontepoke">Ataque Especial: {{ pokemon.specialAttack }}</p>
+                    <p id="fontepoke">Defesa Especial: {{ pokemon.specialDefense }}</p>
+                    <p id="fontepoke">Velocidade: {{ pokemon.speed }}</p>
                 </div>
             </div>
             </div>
-            <div class="content">
-                <button id="btnGirar" class="button is-fullwidth" @click="girarPoke">Girar</button>
+            <div class="container-button">
+                <button id="btnGirar" @click="girarPoke">Girar</button>
             </div>
         </div>
         </div>
@@ -90,13 +90,28 @@ export default {
 </script>
 
 <style>
-#pokemon {
-    margin-top:3%;
+#auxiliar {
+    margin-top:3%; 
 }
+
+#container-poke{
+    width: 500px;
+}
+
 #btnGirar{
-    background-color: cornflowerblue;
+    width: 6rem;
+    background-color: rgb(35, 106, 238);
     color: black;
+    font-size: large;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    height: 3rem;
+    border-radius: 1rem;
 }
+
+#imagempoke img{
+    width: 180px;
+}
+
 #stats-left {
     width: 50%;
     float: left;
@@ -106,5 +121,17 @@ export default {
     width: 50%;
     float: right;
     text-align: left;
+}
+#textopoke{
+    font-size: medium;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+}
+
+#fontepoke{
+    font-weight: bold;
+}
+
+#container-button{
+    align-items: center;
 }
 </style>
