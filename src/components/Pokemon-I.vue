@@ -1,9 +1,7 @@
 <template>
-    <div id="auxiliar">
-    </div>
         <div class="card" id="container-poke">
         <div class="card-image">
-            <figure id="imagempoke">
+            <figure class="imagempoke">
             <img :src="currentImg" alt="Placeholder image">
             </figure>
         </div>
@@ -11,10 +9,10 @@
             <div class="media">
             
             <div class="media-content">
-                <p class="title is-4">{{ num }} - {{ name.toUpperCase() }}</p>
+                <p class="title is-4">{{ pokemon.id }} - {{ name[0].toUpperCase()+name.slice(1) }}</p>
                 <div id="stats-left" >
                     <p id="fontepoke">{{ pokemon.type.toUpperCase() }}</p>
-                    <p id="fontepoke">N° Pokedex: {{ pokemon.num }}</p>
+                    <p id="fontepoke">Altura: {{ pokemon.height }}</p>
                     <p id="fontepoke">HP: {{ pokemon.hp }}</p>
                     <p id="fontepoke">Ataque: {{ pokemon.attack }}</p>
                 </div>
@@ -45,11 +43,9 @@ export default {
             this.pokemon.defense = res.data.stats[2].base_stat;
             this.pokemon.specialAttack = res.data.stats[3].base_stat;
             this.pokemon.specialDefense = res.data.stats[4].base_stat;
-            this.pokemon.speed = res.data.stats[5].base_stat;
-            /*var id = res.data.id;
-            var req = 'https://pokeapi.co/api/v2/evolution-chain/{'+{id}+'}/';
-            this.pokemon.chain = axios.get(req);*/
-            this.pokemon.num = res.data.id;
+            this.pokemon.speed = res.data.stats[5].base_stat;   
+            this.pokemon.id = res.data.id;
+            this.pokemon.height = res.data.height;
             this.pokemon.type = res.data.types[0].type.name;
             this.pokemon.front = res.data.sprites.front_default;
             this.pokemon.back = res.data.sprites.back_default;
@@ -70,9 +66,9 @@ export default {
     },
     //Propriedades de um componente Poke
     props: {
-        num: Number,
+        id: Number,
         name: String,
-        url: String
+        url: String,
     },
     //Criando método para girar a sprite do pokemon
     methods:{
@@ -90,12 +86,10 @@ export default {
 </script>
 
 <style>
-#auxiliar {
-    margin-top:3%; 
-}
 
 #container-poke{
     width: 500px;
+    border-radius: 20px;
 }
 
 #btnGirar{
@@ -108,8 +102,26 @@ export default {
     border-radius: 1rem;
 }
 
-#imagempoke img{
+.imagempoke img{
     width: 180px;
+    border-top-right-radius: 20px;
+    border-top-left-radius: 20px;
+}
+
+.card-content{
+    background-color: rgb(211, 211, 211);;
+    border-top-right-radius: 200px;
+    border-top-left-radius: 20px;
+}
+
+.card{
+    background-color: rgb(211, 211, 211);
+    border-radius: 20px;
+}
+
+.card-image{
+    border-top-right-radius: 20px;
+    border-top-left-radius: 20px;
 }
 
 #stats-left {

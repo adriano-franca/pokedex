@@ -1,14 +1,15 @@
 <template>
   <div class="app">
-    <div class="container" id="container">
+    <div class="container">
+      <div class="container-img">
       <img id="imagem" src="./assets/pokemon.png">
-      <h3 class="is-size-3">Pokedex</h3>
+      </div>
       <input type="text" class="input is-rounded" name="" id="barra-busca" placeholder="Digite o nome do pokemon..." v-model="busca">
-      <div>
+      <div class="container-buttons">
         <button class="button" id="btnBusca" @click="buscar">Buscar</button>
         <button class="button" id="btnBusca" @click="withEvolutions">Buscar com evoluções</button>
       </div>
-        <div id="container-poke" v-for="(poke, index) in pokeFiltro" :key="poke.url">
+        <div class="container-poke" id="container-poke" v-for="(poke, index) in pokeFiltro" :key="poke.url">
           <Pokemon :name="poke.name" :url="poke.url" :num="index+1" />
       </div>
     </div>
@@ -28,6 +29,8 @@ export default {
     return{
       pokemons: [],
       pokeFiltro: [],
+      pokeChain: [],
+      pokeChainFiltro: [],
       busca: ''
     }
   },
@@ -37,6 +40,10 @@ export default {
     axios.get("https://pokeapi.co/api/v2/pokemon?limit=151&offset=0").then(res => {
       this.pokemons = res.data.results;
       this.pokeFiltro = res.data.results;
+    })
+    axios.get("https://pokeapi.co/api/v2/evolution-chain?limit=78&offset=0").then(res2 => {
+      this.pokeChain = res2.data.results;
+      this.pokeChainFiltro = res2.data.results;
     })
   },
   //Colocando Pokemon como componente
@@ -53,15 +60,15 @@ export default {
         this.pokeFiltro = this.pokemons;
       }else{
         //Filtrando os pokemons pelo nome, usei o uppercase para considerar igual independente da escrita, ou seja, BuLbAsAuR e bulbasaur seriam considerados iguais e retornariam o pokemon
-        this.pokeFiltro = this.pokemons.filter(pokemon => pokemon.name.toUpperCase() == this.busca.toUpperCase())
+        this.pokeFiltro = this.pokemons.filter(pokemon => pokemon.name.includes(this.busca))
       }
     },
     //Criando um método para retornar o pokemon que está no campo de busca e a sua cadeia de evolução, futuramente pretendia colocar tudo em um único botão
     withEvolutions: function(){
       if(this.busca == '' || this.busca == ' '){
-        this.pokeFiltro = this.pokemons;
+        this.pokeChainFiltro = this.pokemons;
       }else{
-        alert("Ainda em desenvolvimento");
+        alert("nada")
       }
     }
   }
@@ -69,30 +76,45 @@ export default {
 </script>
 
 <style>
-#app {
+.app {
   font-family: Avenir, Helvetica, Arial, sans-serif;
   text-align: center;
-  margin-top: 30px;
   align-items: center;
 }
+
+.container{
+  flex-direction: column;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.container-poke{
+  padding: 1%;
+}
+
+.container-img{
+  padding: 10px
+}
+
+.container-buttons{
+  padding: 10px;
+}
+
 #btnBusca {
-  margin-top: 2%;
-  size: 50%;
   background-color: rgb(0, 128, 0);
   color: white;
   font-family: Verdana, Geneva, Tahoma, sans-serif;
+  border-radius: 10px;
 }
 
 #barra-busca{
   font-family: Verdana, Geneva, Tahoma, sans-serif;
+  width: 50%;
 }
 
 #imagem{
   width: 300px;
-}
-
-#container{
-  align-items: center;
 }
 
 </style>
